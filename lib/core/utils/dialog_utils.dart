@@ -1,41 +1,50 @@
 import 'package:flutter/material.dart';
+import '../constants/app_colors.dart';
+import '../constants/app_text_styles.dart';
+// إذا بدك تدعم SVG أيقونات، ضيف import لـ flutter_svg وحطها بدل Icon
 
 class DialogUtils {
-  // دالة عرض مربع حوار مخصص حسب تعليمات المشروع
-  static void showAlertDialog({
+  // دالة عامة لعرض مربع حوار مخصص
+  static void showCustomDialog({
     required BuildContext context,
-    required String title,
-    required String message,
-    String confirmButtonText = 'موافق',
-    String? cancelButtonText,
-    VoidCallback? onConfirm,
-    VoidCallback? onCancel,
-    IconData? icon, // أيقونة اختيارية (نجاح/تحذير)
-    Color? iconColor, // لون الأيقونة إذا حابب تغيّره
+    required String title, // العنوان الرئيسي (إجباري)
+    String? message, // نص فرعي أو شرح (اختياري)
+    String confirmButtonText = "موافق", // نص زر التأكيد
+    String? cancelButtonText, // نص زر الإلغاء (اختياري - إذا null يختفي)
+    VoidCallback? onConfirm, // دالة عند ضغط "موافق"
+    VoidCallback? onCancel, // دالة عند ضغط "رجوع" أو الإلغاء
+    IconData? icon, // أيقونة Flutter عادية
+    Widget? customIcon, // أو إذا بدك تمرر ويدجت (مثلاً SVG)
+    Color iconBackgroundColor = AppColors.primaryBlue, // لون الدائرة
+    bool barrierDismissible = false, // هل ممكن يغلق الحوار من الخلفية؟
+    // === الأنماط الجديدة القابلة للتخصيص ===
+    TextStyle? titleStyle,
+    TextStyle? messageStyle,
+    TextStyle? confirmButtonStyle,
+    TextStyle? cancelButtonStyle,
   }) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      barrierDismissible: barrierDismissible,
+      builder: (context) {
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
-          ),
-          elevation: 0,
           backgroundColor: Colors.transparent,
           child: Stack(
             alignment: Alignment.topCenter,
             children: [
-              // الصندوق الأبيض
+              // الصندوق الأبيض الرئيسي
               Container(
-                margin: const EdgeInsets.only(top: 40),
-                padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
+                margin: const EdgeInsets.only(top: 44),
+                padding: const EdgeInsets.fromLTRB(18, 58, 18, 18),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(18),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withAlpha((0.12 * 255).toInt()),
-                      blurRadius: 16,
+                      color: AppColors.darkGrey.withAlpha(
+                        (0.08 * 255).toInt(),
+                      ), // أقرب شي للون الظل حالياً
+                      blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
                   ],
@@ -46,54 +55,56 @@ class DialogUtils {
                     // العنوان
                     Text(
                       title,
-                      // style: AppTextStyles.heading2,
-                      // textAlign: TextAlign.center,
+                      style: titleStyle ?? AppTextStyles.heading2Ar,
+                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 12),
-                    // نص الرسالة
-                    Text(
-                      message,
-                      // style: AppTextStyles.bodyText.copyWith(
-                      //   color: AppColors.darkGrey,
-                    ),
-
-                    // textAlign: TextAlign.center,
-                    const SizedBox(height: 24),
+                    if (message != null) ...[
+                      const SizedBox(height: 12),
+                      Text(
+                        message,
+                        style: messageStyle ?? AppTextStyles.bodyTextAr,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                    const SizedBox(height: 28),
                     // الأزرار
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (cancelButtonText != null)
                           Expanded(
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                onCancel?.call();
+                                if (onCancel != null) onCancel();
                               },
                               child: Text(
                                 cancelButtonText,
-                                // style: AppTextStyles.buttonText.copyWith(
-                                //   color: AppColors.primaryBlue,
+                                style:
+                                    cancelButtonStyle ??
+                                    AppTextStyles.bodyTextAr.copyWith(
+                                      color: AppColors.darkGrey,
+                                    ),
                               ),
                             ),
                           ),
-                        // ),
                         if (cancelButtonText != null) const SizedBox(width: 12),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              onConfirm?.call();
-                            },
                             style: ElevatedButton.styleFrom(
-                              // backgroundColor: Colo.primaryBlue,
+                              backgroundColor: AppColors.primaryBlue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              if (onConfirm != null) onConfirm();
+                            },
                             child: Text(
                               confirmButtonText,
-                              // style: AppTextStyles.buttonText,
+                              style:
+                                  confirmButtonStyle ??
+                                  AppTextStyles.buttonTextAr,
                             ),
                           ),
                         ),
@@ -102,16 +113,19 @@ class DialogUtils {
                   ],
                 ),
               ),
-              // دائرة الأيقونة بالأعلى (إذا طلبت أيقونة)
-              if (icon != null)
-                Positioned(
-                  top: 0,
-                  child: CircleAvatar(
-                    // backgroundColor: iconColor ?? AppColors.successGreen,
-                    radius: 40,
-                    child: Icon(icon, color: Colors.white, size: 48),
-                  ),
+              // الدائرة العلوية (أيقونة/شعار/تحذير)
+              Positioned(
+                top: 0,
+                child: CircleAvatar(
+                  backgroundColor: iconBackgroundColor,
+                  radius: 44,
+                  child:
+                      customIcon ??
+                      (icon != null
+                          ? Icon(icon, color: AppColors.white, size: 44)
+                          : const SizedBox()),
                 ),
+              ),
             ],
           ),
         );
