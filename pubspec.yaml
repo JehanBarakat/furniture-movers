@@ -56,14 +56,24 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
+ 
   uses-material-design: true
 
-  fonts:                     # << فراغين قبلها
-    - family: Almarai        # << 4 فراغات قبلها
-      fonts:                 # << 6 فراغات قبلها
-        - asset: assets/fonts/Almarai-Regular.ttf   # << 8 فراغات
-        - asset: assets/fonts/Almarai-Bold.ttf      # << 8 فراغات
-          weight: 700                                # << 10 فراغات
+  fonts:
+    - family: Almarai
+      fonts:
+        - asset: assets/fonts/Almarai-Regular.ttf
+        - asset: assets/fonts/Almarai-Bold.ttf
+          weight: 700
+
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+                 
 
   # To add assets to your application, add an assets section, like this:
   # assets:
