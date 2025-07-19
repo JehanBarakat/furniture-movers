@@ -52,10 +52,18 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  fonts:                     # << فراغين قبلها
+    - family: Almarai        # << 4 فراغات قبلها
+      fonts:                 # << 6 فراغات قبلها
+        - asset: assets/fonts/Almarai-Regular.ttf   # << 8 فراغات
+        - asset: assets/fonts/Almarai-Bold.ttf      # << 8 فراغات
+          weight: 700                                # << 10 فراغات
 
   # To add assets to your application, add an assets section, like this:
   # assets:
