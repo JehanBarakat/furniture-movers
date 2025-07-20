@@ -10,7 +10,8 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
     color: AppColors.black,
   );
-
+  
+  // -----
   static const TextStyle heading2Ar = TextStyle(
     fontFamily: 'Almarai',
     fontSize: 20,
