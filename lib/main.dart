@@ -9,6 +9,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Furniture Movers');
-  }
-}
+    return MaterialApp(
+      title: 'Furniture Movers',
+    );}}
