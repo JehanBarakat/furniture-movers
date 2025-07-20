@@ -53,10 +53,28 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
+ 
   uses-material-design: true
+
+  fonts:
+    - family: Almarai
+      fonts:
+        - asset: assets/fonts/Almarai-Regular.ttf
+        - asset: assets/fonts/Almarai-Bold.ttf
+          weight: 700
+
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+                 
 
   # To add assets to your application, add an assets section, like this:
   assets:
