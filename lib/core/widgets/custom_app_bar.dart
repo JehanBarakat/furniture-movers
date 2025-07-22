@@ -8,11 +8,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget trailingIcon;
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.title,
     required this.trailingIcon,
     this.onTrailingPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
