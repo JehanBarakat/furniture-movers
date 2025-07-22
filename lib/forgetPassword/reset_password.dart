@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/widgets/custom_app_bar.dart';
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({Key? key}) : super(key: key);
+  const ResetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class ResetPasswordScreen extends StatelessWidget {
           color: Colors.black,
         ),
         onTrailingPressed: () {
-          print('تم الضغط على السهم');
+          //print('تم الضغط على السهم');
         },
       ),
       body: Padding(
