@@ -13,6 +13,7 @@
 
 import 'package:flutter/material.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnituremovers/core/constants/app_colors.dart';
 import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart'; 
@@ -21,6 +22,8 @@ import 'package:furnituremovers/core/widgets/custom_phone_field.dart';
 import 'package:furnituremovers/core/widgets/custom_text_field.dart';
 import 'package:furnituremovers/core/widgets/otp_input_field.dart';
 >>>>>>> 40b9b40165db1d75d2ff13a4cd62a0a87812bffa
+=======
+>>>>>>> d5d5c0b9d07aab44a7d81748b71ba6f218627764
 
 void main() {
   runApp(const MyApp());
@@ -69,6 +72,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< HEAD
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Almarai',
@@ -286,3 +290,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 =======
 >>>>>>> 40b9b40165db1d75d2ff13a4cd62a0a87812bffa
+=======
+      title: 'Furniture Movers',
+    );
+  }
+}
+>>>>>>> d5d5c0b9d07aab44a7d81748b71ba6f218627764
