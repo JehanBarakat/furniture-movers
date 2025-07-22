@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'forgetPassword/resetPassword.dart';
+import 'package:furnituremovers/features/auth/presentation/screens/forget_password_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const ResetPasswordScreen(), // ✅ عرض الشاشة الرئيسية
+      home: const ForgetPasswordScreen(), // ✅ عرض الشاشة الرئيسية
     );
   }
 }
