@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnituremovers/core/constants/app_colors.dart';
 import 'package:furnituremovers/core/constants/app_text_styles.dart';
 import 'package:furnituremovers/core/widgets/custom_app_bar.dart';
-import 'package:furnituremovers/messages.dart';
+import 'package:furnituremovers/screens/messages.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -15,8 +15,8 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final List<Map<String, dynamic>> chats = [
     {
-      'name': 'المديرة جيهان ',
-      'message': 'بدي حطك بدالي من هلا و رايح انت مديري',
+      'name': 'جواد',
+      'message': 'ايهه سيدي الله يفرج ',
       'image': 'assets/images/sticker.webp',
       'unread': true,
       'count': 1,

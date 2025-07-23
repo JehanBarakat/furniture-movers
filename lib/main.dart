@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:furnituremovers/chat.dart';
+
 import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart';
-import 'package:furnituremovers/favorite_page.dart';
-import 'package:furnituremovers/screens/tabBar/service_details_page.dart';
+
+import 'package:furnituremovers/screens/chat.dart';
+import 'package:furnituremovers/screens/favorite_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Almarai',
             scaffoldBackgroundColor: Colors.white,
           ),
-          home: const ServiceDetailsPage(),
+          home: const MyHomePage(),
         );
       },
     );
@@ -41,7 +42,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int currentIndex = 1;
+  int currentIndex = 0;
 
   final List<Widget> pages = const [
     HomePage(),
