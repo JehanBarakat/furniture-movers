@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnituremovers/core/constants/app_text_styles.dart';
 import 'package:furnituremovers/core/constants/app_colors.dart';
 import 'package:furnituremovers/core/widgets/custom_app_bar.dart';
@@ -22,9 +23,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "نسيت كلمة المرور",
-        trailingIcon: const Icon(
+        trailingIcon: Icon(
           Icons.arrow_forward_ios,
-          size: 20,
+          size: 20.sp,
           color: Colors.black,
         ),
         onTrailingPressed: () {
@@ -33,7 +34,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,21 +42,22 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               Center(
                 child: Image.asset(
                   'assets/images/forgetpassowrd.png',
-                  width: 380,
-                  height: 283,
+                  width: 380.w,
+                  height: 283.h,
                   fit: BoxFit.contain,
                 ),
               ),
-              const SizedBox(height: 48),
+              SizedBox(height: 48.h),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text('رقم التلفون', style: AppTextStyles.heading2Ar),
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
+
               IntlPhoneField(
                 controller: phoneController,
                 initialCountryCode: 'EG',
@@ -64,25 +66,25 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   hintTextDirection: TextDirection.rtl,
                   filled: true,
                   fillColor: AppColors.white,
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 16,
-                    horizontal: 12,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 16.h,
+                    horizontal: 12.w,
                   ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                     borderSide: BorderSide.none,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                     borderSide: BorderSide.none,
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                     borderSide: BorderSide.none,
                   ),
+                  counterText: '', // <=== هنا إزالة العداد
                 ),
 
-                // ✅ التحكم بشكل خط الرقم الذي يُدخله المستخدم
                 style: AppTextStyles.heading2Ar,
 
                 dropdownIcon: const Icon(
@@ -91,15 +93,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 ),
                 dropdownIconPosition: IconPosition.trailing,
 
-                // ✅ التحكم بخط رمز الدولة
-                dropdownTextStyle: const TextStyle(
+                dropdownTextStyle: TextStyle(
                   color: AppColors.linearBlue,
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Cairo', // 👈 نفس الخط للتماشي
+                  fontFamily: 'Cairo',
                 ),
 
-                flagsButtonPadding: const EdgeInsets.only(left: 8),
+                flagsButtonPadding: EdgeInsets.only(left: 8.w),
                 showDropdownIcon: true,
                 showCountryFlag: true,
                 textAlign: TextAlign.left,
@@ -114,7 +115,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 },
               ),
 
-              SizedBox(height: 232),
+              SizedBox(height: 232.h),
+
               PrimaryButton(
                 text: "التالي",
                 textStyle: AppTextStyles.buttonTextAr,

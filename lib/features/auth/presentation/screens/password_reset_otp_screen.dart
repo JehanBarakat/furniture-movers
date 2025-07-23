@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnituremovers/core/constants/app_text_styles.dart';
 import 'package:furnituremovers/core/widgets/custom_app_bar.dart';
 import 'package:furnituremovers/core/widgets/primary_button.dart';
 import 'package:furnituremovers/features/auth/presentation/screens/otp.dart';
+import 'package:furnituremovers/features/auth/presentation/screens/reset_password_screen.dart';
 
 class PasswordResetOtpScreen extends StatefulWidget {
   const PasswordResetOtpScreen({super.key});
@@ -20,9 +22,9 @@ class _PasswordResetOtpScreenState extends State<PasswordResetOtpScreen> {
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
         title: 'التحقق من الكود',
-        trailingIcon: const Icon(
+        trailingIcon: Icon(
           Icons.arrow_forward_ios,
-          size: 16,
+          size: 16.sp, // ← Responsive
           color: Colors.black,
         ),
         onTrailingPressed: () {
@@ -30,40 +32,36 @@ class _PasswordResetOtpScreenState extends State<PasswordResetOtpScreen> {
         },
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 10, left: 16, right: 16),
+        padding: EdgeInsets.only(top: 10.h, left: 16.w, right: 16.w), // ← Responsive
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // النص العلوي
             Text(
               'لقد ارسلنا رمز التحقق إلى +963930821058',
               style: AppTextStyles.heading2Ar,
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h), // ← Responsive
 
-            // الصورة
             Center(
               child: Image.asset(
                 'assets/images/OTP security image.png',
-                width: 282,
-                height: 254,
+                width: 282.w, // ← Responsive
+                height: 254.h, // ← Responsive
                 fit: BoxFit.contain,
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h), // ← Responsive
 
-            // عنوان كود التحقق (محاذاة لليمين)
-            const Align(
+            Align(
               alignment: Alignment.centerRight,
               child: Text(
                 'كود التحقق',
-                style: AppTextStyles.heading2Ar
+                style: AppTextStyles.heading2Ar,
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h), // ← Responsive
 
-            // مربعات OTP
             CustomOtpField(
               length: 6,
               onCompleted: (code) {
@@ -73,37 +71,40 @@ class _PasswordResetOtpScreenState extends State<PasswordResetOtpScreen> {
                 print('OTP Entered: $code');
               },
             ),
-            const SizedBox(height: 40),
-            Text("لم تتلق الرمز؟",style: AppTextStyles.smallTextAr,),
-//SizedBox(height: 6,),
-            
+            SizedBox(height: 40.h), // ← Responsive
+
+            Text(
+              "لم تتلق الرمز؟",
+              style: AppTextStyles.smallTextAr,
+            ),
             TextButton(
               onPressed: () {
                 print('إعادة إرسال الكود');
               },
-              child: const Text(
+              child: Text(
                 'أعد إرسال الرمز؟',
                 style: TextStyle(
-                  color: Color(0xff4B75CB),
-                  fontSize: 14,
+                  color: const Color(0xff4B75CB),
+                  fontSize: 14.sp, // ← Responsive
                   decoration: TextDecoration.underline,
-                  fontWeight: FontWeight.w900
+                  fontWeight: FontWeight.w900,
                 ),
               ),
             ),
-            SizedBox(height: 120,),
-            PrimaryButton(
-  text: "التالي",textStyle: AppTextStyles.buttonTextAr,
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const PasswordResetOtpScreen(),
-      ),
-    );
-  },
-),
+            SizedBox(height: 120.h), // ← Responsive
 
+            PrimaryButton(
+              text: "التالي",
+              textStyle: AppTextStyles.buttonTextAr,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ResetPasswordScreen(),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // ← تأكد من إضافتها
 import 'package:furnituremovers/core/constants/app_colors.dart';
 
 class CustomOtpField extends StatefulWidget {
@@ -52,14 +53,14 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: List.generate(widget.length, (index) {
         return Container(
-          width: 56, // عرض الخانة
-          height: 48, // ارتفاع الخانة
+          width: 56.w, // ← responsive
+          height: 48.h, // ← responsive
           decoration: BoxDecoration(
-            color: hasFocus[index] ? Colors.blue.shade50 : const Color(0xFFDEE2E6), // الخلفية حسب التركيز
-            borderRadius: BorderRadius.circular(12),
+            color: hasFocus[index] ? Colors.blue.shade50 : const Color(0xFFDEE2E6),
+            borderRadius: BorderRadius.circular(12.r), // ← responsive
             border: Border.all(
-              color: hasFocus[index] ? Colors.blue : AppColors.regularGrey, // لون الحواف عند التركيز
-              width: 2,
+              color: hasFocus[index] ? Colors.blue : AppColors.regularGrey,
+              width: 2.w, // ← responsive
             ),
           ),
           child: Stack(
@@ -69,19 +70,19 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
                 focusNode: focusNodes[index],
                 maxLength: 1,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 22,
+                style: TextStyle(
+                  fontSize: 22.sp, // ← responsive
                   fontWeight: FontWeight.bold,
                 ),
                 keyboardType: TextInputType.number,
                 cursorColor: Colors.blue,
-                showCursor: false, // إخفاء الخط الأزرق الوميض
-                decoration: const InputDecoration(
+                showCursor: false,
+                decoration: InputDecoration(
                   counterText: '',
                   border: InputBorder.none,
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 18),
+                  contentPadding: EdgeInsets.symmetric(vertical: 18.h), // ← responsive
                 ),
                 onChanged: (value) {
                   if (value.isNotEmpty && index < widget.length - 1) {
@@ -97,14 +98,14 @@ class _CustomOtpFieldState extends State<CustomOtpField> {
               // الخط الأزرق الأفقي داخل الخانة النشطة
               if (hasFocus[index])
                 Positioned(
-                  bottom: 8,
-                  left: 8,
-                  right: 8,
+                  bottom: 8.h,
+                  left: 8.w,
+                  right: 8.w,
                   child: Container(
-                    height: 3,
+                    height: 3.h, // ← responsive
                     decoration: BoxDecoration(
                       color: AppColors.linearBlue,
-                      borderRadius: BorderRadius.circular(2),
+                      borderRadius: BorderRadius.circular(2.r), // ← responsive
                     ),
                   ),
                 ),

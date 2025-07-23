@@ -23,7 +23,7 @@ class CustomTextField extends StatefulWidget {
     this.keyboardType,
     this.validator,
     this.width = 380,
-    this.height = 48,
+    this.height = 48, required TextDirection textDirection,
 
   });
 
