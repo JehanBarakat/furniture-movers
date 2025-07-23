@@ -1,69 +1,12 @@
-// import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(  title: 'Furniture Movers', ); }}
-
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:furnituremovers/core/constants/app_colors.dart';
-import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart'; 
-=======
-import 'package:furnituremovers/core/widgets/custom_phone_field.dart';
-import 'package:furnituremovers/core/widgets/custom_text_field.dart';
-import 'package:furnituremovers/core/widgets/otp_input_field.dart';
->>>>>>> 40b9b40165db1d75d2ff13a4cd62a0a87812bffa
-=======
->>>>>>> d5d5c0b9d07aab44a7d81748b71ba6f218627764
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:furnituremovers/chat.dart';
+import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart';
+import 'package:furnituremovers/favorite_page.dart';
+import 'package:furnituremovers/screens/tabBar/service_details_page.dart';
 
 void main() {
   runApp(const MyApp());
-}
-
-// Separate pages
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('الرئيسية'));
-  }
-}
-
-class ChatPage extends StatelessWidget {
-  const ChatPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('الشات'));
-  }
-}
-
-class FavoritePage extends StatelessWidget {
-  const FavoritePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('المفضلة'));
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('البروفايل'));
-  }
 }
 
 class MyApp extends StatelessWidget {
@@ -71,191 +14,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-<<<<<<< HEAD
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Almarai',
-        useMaterial3: true, // Recommended for modern Flutter apps
-      ),
-<<<<<<< HEAD
-      home: const MyHomePage(),
-=======
-      home: Test(), 
-    ); 
-  }
-}
-
-class Test extends StatelessWidget {
-  Test({super.key});
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPdController = TextEditingController();
-  final TextEditingController askQuestion = TextEditingController();
-  final TextEditingController comment = TextEditingController();
-  final TextEditingController search = TextEditingController();
-  final GlobalKey<OTPInputFieldState> _otpKey = GlobalKey<OTPInputFieldState>();
-  //تستدعي getCurrentCode() من الكلاس OTPInputField
-  //وبتجمع كل الأرقام اللي دخلها المستخدم بالخانات
-  // void _checkOTP() {
-  //   final otpCode = _otpKey.currentState?.getCurrentCode() ?? '';
-  //   //print('رمز التحقق المدخل هو: $otpCode');
-
-  //   // هون فيك تضيف منطق التحقق أو إرسال الرمز للسيرفر
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('واجهة بسيطة'), centerTitle: true),
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            //حقل الاسم
-            CustomTextField(
-              hintText: 'الاسم الكامل',
-              controller: nameController,
-              prefixIcon: Icon(Icons.person_2_outlined),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'الرجاء إدخال الاسم الكامل';
-                }
-                if (value.trim().length < 3) {
-                  return 'الاسم يجب أن يكون على الأقل 3 أحرف';
-                }
-                return null; // لا يوجد خطأ
-              },
-            ),
-            SizedBox(height: 10),
-
-            //حقل كلمة المرور
-            CustomTextField(
-              hintText: '*****************',
-              controller: passwordController,
-              obscureText: true,
-              prefixIcon: Icon(Icons.lock_open),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'الرجاء إدخال كلمة المرور  ';
-                }
-                if (value.trim().length < 8) {
-                  return 'كلمة المرور يجب أن يكون على الأقل 8 أحرف';
-                }
-                return null; // لا يوجد خطأ
-              },
-            ),
-            SizedBox(height: 10),
-
-            //حقل تأكيد كلمة المرور
-            CustomTextField(
-              hintText: '*****************',
-              controller: confirmPdController,
-              obscureText: true,
-              prefixIcon: Icon(Icons.lock_open),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'الرجاء إدخال كلمة المرور  ';
-                }
-                if (confirmPdController != passwordController) {
-                  return 'كلمة المرور غير متطابقة';
-                }
-                if (value.trim().length < 8) {
-                  return 'كلمة المرور يجب أن يكون على الأقل 8 أحرف';
-                }
-
-                return null; // لا يوجد خطأ
-              },
-            ),
-            SizedBox(height: 10),
-
-            //حقل طرح سؤال
-            CustomTextField(
-              hintText: 'طرح سؤال',
-              controller: askQuestion,
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'الرجاء كتابة السؤال';
-                }
-                return null;
-              },
-              width: 340,
-              height: 42,
-            ),
-            SizedBox(height: 10),
-
-            //حقل  إضافة تعليق
-            CustomTextField(
-              hintText: 'اكتب تعليق',
-              controller: comment,
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'الرجاء كتابة التعليق';
-                }
-                return null;
-              },
-              width: 372,
-              height: 107,
-            ),
-            SizedBox(height: 10),
-
-            //حقل  البحث
-            CustomTextField(
-              hintText: 'ابحث عن خدمة أو فنيٍّ',
-              controller: search,
-              prefixIcon: Icon(Icons.search),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'الرجاء كتابة التعليق';
-                }
-                return null;
-              },
-              width: 324,
-            ),
-            SizedBox(height: 10),
-            
-
-            //حقل  إرسال رسالة
-            CustomTextField(
-              hintText: 'اكتب',
-              controller: search,
-              prefixIcon: Icon(Icons.add),
-              validator: (value) {
-                if (value == null || value.trim().isEmpty) {
-                  return 'لا يمكن إرسال رسالة فارغة';
-                }
-                return null;
-              },
-              width: 317.17,
-            ),
-            SizedBox(height: 10),
-
-
-            //حقل ادخال الرقم
-           CustomPhoneInput(
-              onChanged: (fullNumber) {
-                //print('رقم الهاتف الكامل: $fullNumber');
-                // فيك تخزنيه أو تبعتيه للسيرفر
-              },
-            ),
-            SizedBox(height: 10),
-
-
-            // عنصر OTP
-            OTPInputField(
-              key: _otpKey,
-              length: 6, // عدد خانات OTP
-            ),
-          ],
-        ),
-      ),
->>>>>>> 40b9b40165db1d75d2ff13a4cd62a0a87812bffa
+    return ScreenUtilInit(
+      designSize: Size(428, 926), // ← مقاس تصميمك من Figma
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Furniture Movers',
+          theme: ThemeData(
+            fontFamily: 'Almarai',
+            scaffoldBackgroundColor: Colors.white,
+          ),
+          home: const ServiceDetailsPage(),
+        );
+      },
     );
   }
 }
 
-<<<<<<< HEAD
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -264,7 +41,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int currentIndex = 0;
+  int currentIndex = 1;
 
   final List<Widget> pages = const [
     HomePage(),
@@ -280,19 +57,27 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: currentIndex,
         onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
+          setState(() => currentIndex = index);
         },
       ),
     );
   }
 }
-=======
->>>>>>> 40b9b40165db1d75d2ff13a4cd62a0a87812bffa
-=======
-      title: 'Furniture Movers',
-    );
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('الرئيسية'));
   }
 }
->>>>>>> d5d5c0b9d07aab44a7d81748b71ba6f218627764
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('البروفايل'));
+  }
+}
