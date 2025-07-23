@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import '../constants/app_colors.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:country_pickers/country.dart';
-import '../constants/app_colors.dart';
 
 class CustomPhoneInput extends StatefulWidget {
   final Function(String fullNumber)? onChanged;
@@ -13,7 +13,7 @@ class CustomPhoneInput extends StatefulWidget {
 }
 
 class _CustomPhoneInputState extends State<CustomPhoneInput> {
-  Country _selectedCountry = CountryPickerUtils.getCountryByIsoCode('EG');
+  var country = CountryPickerUtils.getCountryByIsoCode('EG');
   final TextEditingController _controller = TextEditingController();
 
   void _openCountryPickerDialog() {
@@ -27,7 +27,7 @@ class _CustomPhoneInputState extends State<CustomPhoneInput> {
           isSearchable: true,
           title: const Text('اختر الدولة'),
           onValuePicked: (Country country) {
-            setState(() => _selectedCountry = country);
+            setState(() => this.country = country);
           },
           itemBuilder: _buildDialogItem,
         ),
@@ -83,17 +83,17 @@ class _CustomPhoneInputState extends State<CustomPhoneInput> {
                     textDirection: TextDirection.ltr,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: '1012445665 (+${_selectedCountry.phoneCode})',
+                      hintText: '1012445665 (+${country.phoneCode})',
                       contentPadding: const EdgeInsets.only(bottom: 12),
                     ),
                     onChanged: (_) {
-                      final full = '+${_selectedCountry.phoneCode}${_controller.text}';
+                      final full = '+${country.phoneCode}${_controller.text}';
                       widget.onChanged?.call(full);
                     },
                   ),
                 ),
                 const SizedBox(width: 4),
-                CountryPickerUtils.getDefaultFlagImage(_selectedCountry),
+                CountryPickerUtils.getDefaultFlagImage(country),
               ],
             ),
           ),

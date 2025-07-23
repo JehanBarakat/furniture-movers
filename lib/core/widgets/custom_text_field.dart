@@ -11,6 +11,7 @@ class CustomTextField extends StatefulWidget {
   final String? Function(String?)? validator;//للتحقق من المدخلات
   final double? width;
   final double? height;
+  final Function(String)? onChanged; // أضفت هذا السطر
 
 
   const CustomTextField({
@@ -24,7 +25,7 @@ class CustomTextField extends StatefulWidget {
     this.validator,
     this.width = 380,
     this.height = 48,
-
+    this.onChanged, // أضفت هذا السطر
   });
 
   @override
@@ -78,6 +79,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         minLines: isCommentField ? 3 : 1,//إذا حقل تعليق أدنى عدد للأسطر هو 3 و الا  سطر 
         style: const TextStyle(fontSize: 16, color: Colors.black),
         textDirection: textDirection,
+        onChanged: widget.onChanged, // أضفت هذا السطر
         decoration: InputDecoration(
           hintText: widget.hintText,
           hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
