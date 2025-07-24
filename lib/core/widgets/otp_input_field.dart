@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../constants/app_colors.dart'; // استيراد الألوان المخصصة للمشروع
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../constants/app_colors.dart';
 
 /// عنصر إدخال OTP يتكون من عدة حقول إدخال رقمية
 class OTPInputField extends StatefulWidget {
@@ -71,14 +72,14 @@ class OTPInputFieldState extends State<OTPInputField> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: Directionality.of(context), 
+      textDirection: Directionality.of(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(widget.length, (index) {
           return Container(
-            width: 56,
-            height: 48,
-            margin: const EdgeInsets.symmetric(horizontal: 5),
+            width: 56.w,
+            height: 48.h,
+            margin: EdgeInsets.symmetric(horizontal: 5.w),
 
             // مستمع لأحداث الكيبورد (مثل Backspace)
             child: KeyboardListener(
@@ -99,10 +100,11 @@ class OTPInputFieldState extends State<OTPInputField> {
                     controller: _controllers[index],
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
-                    maxLength: 1, // يسمح بإدخال رقم واحد فقط
+                    maxLength: 1,
                     focusNode: _focusNodes[index],
+                    style: TextStyle(fontSize: 18.sp), // حجم النص OTP
                     inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly, // قبول الأرقام فقط
+                      FilteringTextInputFormatter.digitsOnly,
                     ],
                     onChanged: (value) {
                       // إذا تم لصق نص يحتوي أكثر من رقم
@@ -117,28 +119,28 @@ class OTPInputFieldState extends State<OTPInputField> {
                       }
                     },
                     decoration: InputDecoration(
-                      counterText: '', // إخفاء عداد الحروف
+                      counterText: '',
                       filled: true,
-                      fillColor: AppColors.veryLightGrey, // لون خلفية الحقل
+                      fillColor: AppColors.veryLightGrey,
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                         borderSide: BorderSide(color: Colors.grey.shade300),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                         borderSide: const BorderSide(color: AppColors.primaryBlue),
                       ),
                     ),
                   ),
 
-                  // خط  أزرق يظهر في الحقل عند التركيز
+                  // خط أزرق يظهر في الحقل عند التركيز
                   if (_focusNodes[index].hasFocus)
-                    const Positioned(
-                      bottom: 14,
+                    Positioned(
+                      bottom: 14.h,
                       child: SizedBox(
-                        width: 23.8,
-                        height: 2,
-                        child: DecoratedBox(
+                        width: 23.8.w,
+                        height: 2.h,
+                        child: const DecoratedBox(
                           decoration: BoxDecoration(color: AppColors.primaryBlue),
                         ),
                       ),
