@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart';
 
 import 'package:furnituremovers/screens/chat.dart';
 import 'package:furnituremovers/screens/favorite_page.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -82,3 +85,4 @@ class ProfilePage extends StatelessWidget {
     return const Center(child: Text('البروفايل'));
   }
 }
+
