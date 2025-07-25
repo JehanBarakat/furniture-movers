@@ -49,11 +49,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
-  country_pickers:
+  country_picker:
     dependency: "direct main"
     description:
-      name: country_pickers
-      sha256: b10f6618fa64fbba02ffc4ad1b84dc0ca071cc206e5376de1698bddd980b355a
+      name: country_picker
+      sha256: "9b14c04f9a35e99f6de6bcbc453a556bb98345aecb481c7a0e843c94c2bee1f8"
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
@@ -65,6 +65,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.3"
+
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -94,7 +95,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
-  flutter_localizations:
+  flutter_otp_text_field:
     dependency: "direct main"
     description: flutter
     source: sdk
@@ -136,14 +137,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
-  intl:
-    dependency: transitive
-    description:
-      name: intl
-      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.20.2"
   intl_phone_field:
     dependency: "direct main"
     description:
@@ -293,6 +286,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  universal_io:
+    dependency: transitive
+    description:
+      name: universal_io
+      sha256: "1722b2dcc462b4b2f3ee7d188dad008b6eb4c40bbd03a3de451d82c78bba9aad"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.2"
   vector_graphics:
     dependency: transitive
     description:

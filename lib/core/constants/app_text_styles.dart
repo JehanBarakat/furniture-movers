@@ -5,10 +5,12 @@ class AppTextStyles {
   // ----------------- Almarai (العربية) -----------------
 
   static const TextStyle heading1Ar = TextStyle(
+    
     fontFamily: 'Almarai',
     fontSize: 24,
     fontWeight: FontWeight.bold,
     color: AppColors.black,
+    
   );
   
   // -----
