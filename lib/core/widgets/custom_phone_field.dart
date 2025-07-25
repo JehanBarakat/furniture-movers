@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import '../constants/app_colors.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:country_pickers/country.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:furnituremovers/core/constants/app_text_styles.dart';
+import '../constants/app_colors.dart';
+
 
 class CustomPhoneInput extends StatefulWidget {
   final Function(String fullNumber)? onChanged;
@@ -13,7 +16,8 @@ class CustomPhoneInput extends StatefulWidget {
 }
 
 class _CustomPhoneInputState extends State<CustomPhoneInput> {
-  var country = CountryPickerUtils.getCountryByIsoCode('EG');
+
+  Country _selectedCountry = CountryPickerUtils.getCountryByIsoCode('EG');
   final TextEditingController _controller = TextEditingController();
 
   void _openCountryPickerDialog() {
@@ -21,13 +25,15 @@ class _CustomPhoneInputState extends State<CustomPhoneInput> {
       context: context,
       builder: (context) => Dialog(
         child: CountryPickerDialog(
-          titlePadding: const EdgeInsets.all(8.0),
-          searchCursorColor: Colors.black,
+
+          titlePadding: EdgeInsets.all(8.0.w),
+          searchCursorColor: AppColors.black,
           searchInputDecoration: const InputDecoration(hintText: 'بحث'),
           isSearchable: true,
           title: const Text('اختر الدولة'),
           onValuePicked: (Country country) {
-            setState(() => this.country = country);
+
+            setState(() => _selectedCountry = country);
           },
           itemBuilder: _buildDialogItem,
         ),
@@ -39,9 +45,10 @@ class _CustomPhoneInputState extends State<CustomPhoneInput> {
     return Row(
       children: <Widget>[
         CountryPickerUtils.getDefaultFlagImage(country),
-        const SizedBox(width: 8.0),
-        Text("+${country.phoneCode}"),
-        const SizedBox(width: 8.0),
+
+        SizedBox(width: 8.w),
+        Text("(+${country.phoneCode})"),
+        SizedBox(width: 8.w),
         Expanded(child: Text(country.name)),
       ],
     );
@@ -49,55 +56,58 @@ class _CustomPhoneInputState extends State<CustomPhoneInput> {
 
   @override
   Widget build(BuildContext context) {
-    // تحديد اتجاه كامل العنصر بناءً على لغة التطبيق
-    TextDirection overallDirection =
-        Localizations.localeOf(context).languageCode == 'ar'
-            ? TextDirection.rtl
-            : TextDirection.ltr;
-
     return Directionality(
-      textDirection: overallDirection,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 380,
-            height: 48,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: AppColors.veryLightGrey,
-              borderRadius: BorderRadius.circular(8),
+      textDirection: TextDirection.ltr, // ترتيب يسار ليمين
+      child: Container(
+        width: 380.w,
+        height: 48.h,
+        padding: EdgeInsets.symmetric(horizontal: 12.w), // بدون padding عمودي
+        decoration: BoxDecoration(
+          color: AppColors.veryLightGrey,
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // 1- العلم
+            CountryPickerUtils.getDefaultFlagImage(_selectedCountry),
+            SizedBox(width: 8.w),
+
+            // 2- الرمز الدولي
+            Text(
+              "(+${_selectedCountry.phoneCode})",
+              style: AppTextStyles.smallTextAr.copyWith(color: AppColors.primaryBlue),
             ),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_drop_down),
-                  onPressed: _openCountryPickerDialog,
+            SizedBox(width: 12.w),
+
+            // 3- حقل إدخال الرقم
+            Expanded(
+              child: TextField(
+                controller: _controller,
+                keyboardType: TextInputType.phone,
+                textDirection: TextDirection.ltr,
+                textAlignVertical: TextAlignVertical.center, // توسيط عمودي
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: '1012445665',
+                  hintStyle: AppTextStyles.smallTextAr,
+                  isDense: true, // يقلل الـ padding الداخلي
+                  contentPadding: EdgeInsets.only(top: 6, bottom: 0), 
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    keyboardType: TextInputType.phone,
-                    // **اتجاه النص داخل حقل رقم الهاتف LTR دائمًا**
-                    textDirection: TextDirection.ltr,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '1012445665 (+${country.phoneCode})',
-                      contentPadding: const EdgeInsets.only(bottom: 12),
-                    ),
-                    onChanged: (_) {
-                      final full = '+${country.phoneCode}${_controller.text}';
-                      widget.onChanged?.call(full);
-                    },
-                  ),
-                ),
-                const SizedBox(width: 4),
-                CountryPickerUtils.getDefaultFlagImage(country),
-              ],
+                onChanged: (_) {
+                  final full = '+${_selectedCountry.phoneCode}${_controller.text}';
+                  widget.onChanged?.call(full);
+                },
+              ),
             ),
-          ),
-        ],
+
+            // 4- السهم
+            IconButton(
+              icon: const Icon(Icons.arrow_drop_down),
+              onPressed: _openCountryPickerDialog,
+            ),
+          ],
+        ),
       ),
     );
   }

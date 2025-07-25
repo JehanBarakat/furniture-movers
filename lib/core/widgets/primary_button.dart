@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 enum ButtonType { filled, outlined }
 
 class PrimaryButton extends StatelessWidget {
@@ -35,15 +37,22 @@ class PrimaryButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width,
-        height: height,
-        padding: padding,
+        width: width.w,
+        height: height.h,
+        padding: EdgeInsets.symmetric(
+          horizontal: (padding as EdgeInsets).horizontal / 2.w,
+          vertical: (padding as EdgeInsets).vertical / 2.h,
+        ),
         decoration: BoxDecoration(
           color: buttonType == ButtonType.outlined ? Colors.white : null,
           gradient: buttonType == ButtonType.filled ? gradient : null,
-          borderRadius: borderRadius,
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              (borderRadius as BorderRadius).topLeft.x.w,
+            ),
+          ),
           border: buttonType == ButtonType.outlined
-              ? Border.all(color: const Color(0xff4999CB), width: 1.5)
+              ? Border.all(color: const Color(0xff4999CB), width: 1.5.w)
               : null,
         ),
         alignment: Alignment.center,
@@ -54,7 +63,7 @@ class PrimaryButton extends StatelessWidget {
                 color: buttonType == ButtonType.outlined
                     ? const Color(0xff4999CB)
                     : Colors.white,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
               ),
         ),

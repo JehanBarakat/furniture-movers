@@ -5,12 +5,12 @@ import '../constants/app_text_styles.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onTrailingPressed;
-  final Widget trailingIcon;
+  final Widget? trailingIcon;
 
   const CustomAppBar({
     super.key,
     required this.title,
-    required this.trailingIcon,
+    this.trailingIcon,
     this.onTrailingPressed,
   });
 
@@ -22,34 +22,33 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           backgroundColor: AppColors.white,
           elevation: 0,
           centerTitle: true,
-          title: Text(
-            title,
-            style: AppTextStyles.heading1Ar,
-          ),
-          actions: [
-            Container(
-              width: 40,
-              height: 40,
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              decoration: BoxDecoration(
-                color: AppColors.white, // خلفية بيضاء للمربع
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: AppColors.lightGrey),
-              ),
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: onTrailingPressed ?? () {},
-                icon: SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: IconTheme(
-                    data: IconThemeData(color: AppColors.lightGrey),
-                    child: trailingIcon,
+          title: Text(title, style: AppTextStyles.heading1Ar),
+          actions: trailingIcon != null
+              ? [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: AppColors.lightGrey),
+                    ),
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: onTrailingPressed ?? () {},
+                      icon: SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: IconTheme(
+                          data: IconThemeData(color: AppColors.lightGrey),
+                          child: trailingIcon!,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          ],
+                ]
+              : [],
         ),
         Container(
           height: 1,
@@ -61,5 +60,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(70);
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:furnituremovers/core/widgets/custom_phone_field.dart';
-import 'package:furnituremovers/core/widgets/custom_text_field.dart';
-import 'package:furnituremovers/core/widgets/otp_input_field.dart';
-import 'features/settings/presentation/screens/about app.dart';
-import 'features/settings/presentation/screens/app-language.dart';
-import 'features/settings/presentation/screens/app-model.dart';
-import 'features/settings/presentation/screens/concat-us.dart';
-import 'features/settings/presentation/screens/term&condditions.dart';
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart';
+
+import 'package:furnituremovers/screens/chat.dart';
+import 'package:furnituremovers/screens/favorite_page.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -17,25 +17,72 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Furniture Movers',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white, // ✅ يجعل خلفية كل الشاشات بيضاء
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
-          titleTextStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-            fontFamily: 'Roboto',
+    return ScreenUtilInit(
+      designSize: Size(428, 926), // ← مقاس تصميمك من Figma
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Furniture Movers',
+          theme: ThemeData(
+            fontFamily: 'Almarai',
+            scaffoldBackgroundColor: Colors.white,
           ),
-        ),
+          home: const MyHomePage(),
+        );
+      },
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int currentIndex = 0;
+
+  final List<Widget> pages = const [
+    HomePage(),
+    ChatPage(),
+    FavoritePage(),
+    ProfilePage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: pages[currentIndex],
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: currentIndex,
+        onTap: (index) {
+          setState(() => currentIndex = index);
+        },
       ),
-      home: TermsAndConditionsScreen(),
-    ); 
+
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('الرئيسية'));
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('البروفايل'));
   }
 }
 
