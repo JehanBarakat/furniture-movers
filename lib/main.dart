@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart';
@@ -63,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           setState(() => currentIndex = index);
         },
       ),
+
     );
   }
 }
@@ -84,4 +85,5 @@ class ProfilePage extends StatelessWidget {
     return const Center(child: Text('البروفايل'));
   }
 }
+
 

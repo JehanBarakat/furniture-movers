@@ -66,6 +66,7 @@ packages:
     source: hosted
     version: "0.0.3"
 
+
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -95,11 +96,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
+
   flutter_otp_text_field:
+
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -137,6 +141,16 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.2"
+
   intl_phone_field:
     dependency: "direct main"
     description:

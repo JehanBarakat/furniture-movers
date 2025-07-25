@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constants/app_colors.dart';
+
 
 /// عنصر إدخال OTP يتكون من عدة حقول إدخال رقمية
 class OTPInputField extends StatefulWidget {
@@ -72,14 +74,18 @@ class OTPInputFieldState extends State<OTPInputField> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
+
       textDirection: Directionality.of(context),
+
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(widget.length, (index) {
           return Container(
+
             width: 56.w,
             height: 48.h,
             margin: EdgeInsets.symmetric(horizontal: 5.w),
+
 
             // مستمع لأحداث الكيبورد (مثل Backspace)
             child: KeyboardListener(
@@ -100,11 +106,13 @@ class OTPInputFieldState extends State<OTPInputField> {
                     controller: _controllers[index],
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
+
                     maxLength: 1,
                     focusNode: _focusNodes[index],
                     style: TextStyle(fontSize: 18.sp), // حجم النص OTP
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
+
                     ],
                     onChanged: (value) {
                       // إذا تم لصق نص يحتوي أكثر من رقم
@@ -119,6 +127,7 @@ class OTPInputFieldState extends State<OTPInputField> {
                       }
                     },
                     decoration: InputDecoration(
+
                       counterText: '',
                       filled: true,
                       fillColor: AppColors.veryLightGrey,
@@ -128,6 +137,7 @@ class OTPInputFieldState extends State<OTPInputField> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.r),
+
                         borderSide: const BorderSide(color: AppColors.primaryBlue),
                       ),
                     ),
