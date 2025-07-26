@@ -3,10 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart';
-
+import 'package:furnituremovers/features/auth/presentation/screens/login_screen.dart';
 import 'package:furnituremovers/screens/chat.dart';
 import 'package:furnituremovers/screens/favorite_page.dart';
+
 import 'package:furnituremovers/screens/home_screen.dart';
+import 'package:furnituremovers/screens/onboarding/splash_screen.dart';
+import 'package:furnituremovers/screens/profile_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Almarai',
             scaffoldBackgroundColor: Colors.white,
           ),
-          home: const MyHomePage(),
+          home: const SplashScreenCustom(),
         );
       },
     );
@@ -50,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
     HomeScreen(), // index 0
     ChatPage(), // index 1
     FavoritePage(), // index 2
-    ProfilePage(), // index 3
+    ProfileScreen(), // index 3
   ];
 
   @override
@@ -62,14 +65,5 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: (index) => setState(() => currentIndex = index),
       ),
     );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('البروفايل'));
   }
 }

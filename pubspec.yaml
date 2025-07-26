@@ -39,11 +39,12 @@ dependencies:
     sdk: flutter
   intl_phone_field: ^3.2.0
   country_pickers: ^3.0.1
+
   csc_picker_plus: ^0.0.3 
   flutter_screenutil: ^5.9.3
 
-  
 
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

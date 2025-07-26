@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 enum ButtonType { filled, outlined }
 
 class PrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
-  final double width;
+  final double? width; // لو null، يمتد ليملأ المساحة المتاحة
   final double height;
   final EdgeInsetsGeometry padding;
   final LinearGradient gradient;
@@ -14,12 +15,12 @@ class PrimaryButton extends StatelessWidget {
   final ButtonType buttonType;
 
   const PrimaryButton({
-    super.key,
+    Key? key,
     required this.text,
     required this.onTap,
-    this.width = 385,
+    this.width, // صار اختياري
     this.height = 48,
-    this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 11),
+    this.padding = const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
     this.gradient = const LinearGradient(
       colors: [Color(0xff4999CB), Color(0xff4B75CB)],
       begin: Alignment.topCenter,
@@ -27,34 +28,35 @@ class PrimaryButton extends StatelessWidget {
     ),
     this.textStyle,
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
-    this.buttonType = ButtonType.filled, // الافتراضي: ممتلئ
-  });
+    this.buttonType = ButtonType.filled,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width,
-        height: height,
-        padding: padding,
+        width: width != null ? width!.w : double.infinity,
+        height: height.h,
+        padding: padding,  
         decoration: BoxDecoration(
           color: buttonType == ButtonType.outlined ? Colors.white : null,
           gradient: buttonType == ButtonType.filled ? gradient : null,
           borderRadius: borderRadius,
           border: buttonType == ButtonType.outlined
-              ? Border.all(color: const Color(0xff4999CB), width: 1.5)
+              ? Border.all(color: gradient.colors.first, width: 1.5.w)
               : null,
         ),
         alignment: Alignment.center,
         child: Text(
           text,
-          style: textStyle ??
+          style:
+              textStyle ??
               TextStyle(
                 color: buttonType == ButtonType.outlined
-                    ? const Color(0xff4999CB)
+                    ? gradient.colors.first
                     : Colors.white,
-                fontSize: 16,
+                fontSize: 12.sp,
                 fontWeight: FontWeight.bold,
               ),
         ),

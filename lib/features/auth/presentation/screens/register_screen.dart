@@ -92,27 +92,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
-                    CustomTextField(
-                      hintText: 'الاسم الكامل',
-                      controller: nameController,
-                      prefixIcon: SvgPicture.asset(
-                        'assets/icons/personline.svg',
-                        width: 14,
-                        height: 14,
-                        colorFilter: ColorFilter.mode(
-                          AppColors.mediumPrimary,
-                          BlendMode.srcIn,
+                    Expanded(
+                      child: CustomTextField(
+                        textDirection: TextDirection.rtl,
+                        hintText: 'الاسم الكامل',
+                        controller: nameController,
+                        prefixIcon: SvgPicture.asset(
+                          'assets/icons/personline.svg',
+                          width: 14,
+                          height: 14,
+                          colorFilter: ColorFilter.mode(
+                            AppColors.mediumPrimary,
+                            BlendMode.srcIn,
+                          ),
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'الرجاء إدخال الاسم الكامل';
+                          }
+                          if (value.trim().length < 3) {
+                            return 'الاسم يجب أن يكون على الأقل 3 أحرف';
+                          }
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'الرجاء إدخال الاسم الكامل';
-                        }
-                        if (value.trim().length < 3) {
-                          return 'الاسم يجب أن يكون على الأقل 3 أحرف';
-                        }
-                        return null;
-                      },
                     ),
 
                     SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
@@ -141,6 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
                     CustomTextField(
+                      textDirection: TextDirection.rtl,
                       hintText: '*****************',
                       controller: passwordController,
                       obscureText: true,
@@ -177,6 +181,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
                     CustomTextField(
+                         textDirection: TextDirection.rtl, // ← أضف هذا السطر
+
                       hintText: '*****************',
                       controller: confirmPasswordController,
                       obscureText: true,

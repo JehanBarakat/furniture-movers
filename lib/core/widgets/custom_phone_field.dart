@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnituremovers/core/constants/app_text_styles.dart';
 import '../constants/app_colors.dart';
 
+
 class CustomPhoneInput extends StatefulWidget {
   final Function(String fullNumber)? onChanged;
 
@@ -15,6 +16,7 @@ class CustomPhoneInput extends StatefulWidget {
 }
 
 class _CustomPhoneInputState extends State<CustomPhoneInput> {
+
   Country _selectedCountry = CountryPickerUtils.getCountryByIsoCode('EG');
   final TextEditingController _controller = TextEditingController();
 
@@ -23,12 +25,14 @@ class _CustomPhoneInputState extends State<CustomPhoneInput> {
       context: context,
       builder: (context) => Dialog(
         child: CountryPickerDialog(
+
           titlePadding: EdgeInsets.all(8.0.w),
           searchCursorColor: AppColors.black,
           searchInputDecoration: const InputDecoration(hintText: 'بحث'),
           isSearchable: true,
           title: const Text('اختر الدولة'),
           onValuePicked: (Country country) {
+
             setState(() => _selectedCountry = country);
           },
           itemBuilder: _buildDialogItem,
@@ -41,6 +45,7 @@ class _CustomPhoneInputState extends State<CustomPhoneInput> {
     return Row(
       children: <Widget>[
         CountryPickerUtils.getDefaultFlagImage(country),
+
         SizedBox(width: 8.w),
         Text("(+${country.phoneCode})"),
         SizedBox(width: 8.w),

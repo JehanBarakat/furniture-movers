@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnituremovers/core/constants/app_text_styles.dart';
+
 import '../constants/app_colors.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -14,6 +16,7 @@ class CustomTextField extends StatefulWidget {
   final double? width;
   final double? height;
 
+
   const CustomTextField({
     super.key,
     this.hintText,
@@ -24,7 +27,8 @@ class CustomTextField extends StatefulWidget {
     this.keyboardType,
     this.validator,
     this.width = 380,
-    this.height = 48,
+    this.height = 48, required TextDirection textDirection,
+
   });
 
   @override
@@ -32,28 +36,37 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+
   late bool _obscure; // للتحكم إذا لازم نخفي النص أو لا
+
 
   @override
   void initState() {
     super.initState();
+
     _obscure = widget.obscureText; // أول ما ينشأ الحقل، ياخذ القيمة الأولى
+
   }
 
   void _toggleVisibility() {
     setState(() {
+
       _obscure = !_obscure; // إظهار أو إخفاء النص عند الضغط على الأيقونة
+
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
     final bool isCommentField = widget.height == 107; // إذا الحقل تعليق
     final Widget? suffixIcon = widget.obscureText
+
         ? IconButton(
             icon: Icon(
               _obscure ? Icons.visibility_off : Icons.visibility,
               color: AppColors.mediumGrey,
+
               size: 18,
             ),
             onPressed: _toggleVisibility,
@@ -69,6 +82,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       width: widget.width!.w,
       height: widget.height!.h,
+
       child: TextFormField(
         controller: widget.controller,
         obscureText: _obscure,
@@ -97,6 +111,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
+
             borderSide: BorderSide(color: AppColors.primaryBlue),
           ),
         ),
