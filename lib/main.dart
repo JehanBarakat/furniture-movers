@@ -1,13 +1,12 @@
+// lib/main.dart
+
 import 'package:flutter/material.dart';
-
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart';
 
 import 'package:furnituremovers/screens/chat.dart';
 import 'package:furnituremovers/screens/favorite_page.dart';
-
+import 'package:furnituremovers/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(428, 926), // ← مقاس تصميمك من Figma
+      designSize: const Size(428, 926),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -48,10 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentIndex = 0;
 
   final List<Widget> pages = const [
-    HomePage(),
-    ChatPage(),
-    FavoritePage(),
-    ProfilePage(),
+    HomeScreen(), // index 0
+    ChatPage(), // index 1
+    FavoritePage(), // index 2
+    ProfilePage(), // index 3
   ];
 
   @override
@@ -60,20 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: pages[currentIndex],
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() => currentIndex = index);
-        },
+        onTap: (index) => setState(() => currentIndex = index),
       ),
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('الرئيسية'));
   }
 }
 
@@ -85,4 +73,3 @@ class ProfilePage extends StatelessWidget {
     return const Center(child: Text('البروفايل'));
   }
 }
-

@@ -38,6 +38,7 @@ class FavoritePage extends StatelessWidget {
           ),
         ),
       ),
+
       body: Column(
         children: [
           Divider(height: 1.h, thickness: 1.h, color: AppColors.lightGrey),
@@ -81,7 +82,7 @@ class FavoritePage extends StatelessWidget {
                               ),
                               Positioned(
                                 top: 8.h,
-                                left: 8.w,
+                                left: 85.w,
                                 child: Container(
                                   width: 28.w,
                                   height: 28.w,
