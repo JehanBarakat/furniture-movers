@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // لاستخدام ScreenUtil
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnituremovers/core/constants/app_colors.dart';
 import 'package:furnituremovers/core/constants/app_spacing.dart';
 import 'package:furnituremovers/core/constants/app_text_styles.dart';
@@ -10,7 +10,6 @@ import 'package:furnituremovers/core/widgets/custom_text_field.dart';
 import 'package:furnituremovers/core/widgets/primary_button.dart';
 import 'package:furnituremovers/features/auth/presentation/screens/register_screen.dart';
 import 'package:furnituremovers/main.dart';
-import 'package:furnituremovers/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,17 +21,36 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   final TextEditingController passwordController = TextEditingController();
+  late TapGestureRecognizer _registerTapRecognizer;
+
+  @override
+  void initState() {
+    super.initState();
+    _registerTapRecognizer = TapGestureRecognizer()
+      ..onTap = () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const RegisterScreen()),
+        );
+      };
+  }
+
+  @override
+  void dispose() {
+    _registerTapRecognizer.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   void _login() async {
     setState(() => _isLoading = true);
     await Future.delayed(const Duration(seconds: 2));
     setState(() => _isLoading = false);
-    // بعد نجاح "تسجيل الدخول"، ننتقل للشاشة الرئيسية ونمنع العودة لشاشة تسجيل الدخول
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const MyHomePage()),
     );
-    // منطق تسجيل الدخول بعد النجاح
   }
 
   @override
@@ -44,160 +62,166 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Stack(
           children: [
             SafeArea(
-              child: Padding(
-                padding: AppSpacing.screenPadding,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // الجزء العلوي: الترحيب
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SizedBox(height: 60.h),
-                        Text(
-                          "مرحباً بعودتك مجددًا...",
-                          style: AppTextStyles.heading1Ar,
-                          textAlign: TextAlign.right,
-                        ),
-                        SizedBox(height: 8.h),
-                        Text(
-                          "فضلاً قم بتسجيل الدخول إلى حسابك",
-                          style: AppTextStyles.bodyTextAr.copyWith(
-                            color: AppColors.grey,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                      ],
-                    ),
-
-                    // الصورة في المنتصف بمساحة مرنة
-                    Expanded(
-                      flex: 3,
-                      child: Center(
-                        child: Image.asset(
-                          "assets/images/login-image.png",
-                          fit: BoxFit.contain,
-                        ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return Padding(
+                    padding: AppSpacing.screenPadding,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
                       ),
-                    ),
-
-                    // حقول الإدخال وزر الدخول
-                    Expanded(
-                      flex: 4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          // رقم التلفون
-                          Text(
-                            "رقم التلفون",
-                            style: AppTextStyles.buttonTextAr.copyWith(
-                              color: AppColors.black,
-                            ),
-                            textAlign: TextAlign.right,
-                          ),
-                          SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
-                          CustomPhoneInput(onChanged: (fullNumber) {}),
-
-                          SizedBox(height: 16.h),
-
-                          // كلمة المرور
-                          Text(
-                            "كلمة المرور",
-                            style: AppTextStyles.buttonTextAr.copyWith(
-                              color: AppColors.black,
-                            ),
-                            textAlign: TextAlign.right,
-                          ),
-                          SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
-                          CustomTextField(
-                            textDirection: TextDirection.rtl,
-                            hintText: '*****************',
-                            controller: passwordController,
-                            obscureText: true,
-                            prefixIcon: SvgPicture.asset(
-                              'assets/icons/lock-open.svg',
-                              width: 14,
-                              height: 19,
-                              colorFilter: ColorFilter.mode(
-                                AppColors.mediumPrimary,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return 'الرجاء إدخال كلمة المرور';
-                              }
-                              if (value.trim().length < 8) {
-                                return 'كلمة المرور يجب أن تكون على الأقل 8 أحرف';
-                              }
-                              return null;
-                            },
-                          ),
-
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: TextButton(
-                              onPressed: () {
-                                // الانتقال لصفحة نسيان كلمة المرور
-                              },
-                              child: Text(
-                                "نسيت كلمة المرور؟",
-                                style: AppTextStyles.smallTextAr,
-                              ),
-                            ),
-                          ),
-
-                          SizedBox(height: AppSpacing.largeVerticalSpacing.h),
-
-                          PrimaryButton(
-                            text: "تسجيل الدخول",
-                            padding: EdgeInsets.all(5),
-                            textStyle: AppTextStyles.bodyTextAr.copyWith(
-                              color: AppColors.white,
-                            ),
-                            onTap: _login,
-                            width: double.infinity,
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // رابط إنشاء حساب جديد
-                    Column(
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            text: "ليس لديك حساب؟ ",
-                            style: AppTextStyles.smallTextAr,
-                            children: [
-                              TextSpan(
-                                text: "إنشاء جديد",
-                                style: AppTextStyles.smallTextAr.copyWith(
-                                  color: AppColors.primaryBlue,
+                      child: IntrinsicHeight(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            // الترحيب
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                SizedBox(height: 50.h),
+                                Text(
+                                  "مرحباً بعودتك مجددًا...",
+                                  style: AppTextStyles.heading1Ar,
+                                  textAlign: TextAlign.right,
                                 ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const RegisterScreen(),
-                                      ),
-                                    );
-                                  },
+                                SizedBox(height: 8.h),
+                                Text(
+                                  "فضلاً قم بتسجيل الدخول إلى حسابك",
+                                  style: AppTextStyles.bodyTextAr.copyWith(
+                                    color: AppColors.grey,
+                                  ),
+                                  textAlign: TextAlign.right,
+                                ),
+                              ],
+                            ),
+
+                            SizedBox(height: 16.h),
+
+                            // الصورة
+                            Expanded(
+                              flex: 2,
+                              child: Center(
+                                child: Image.asset(
+                                  "assets/images/login-image.png",
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+
+                            SizedBox(height: 16.h),
+
+                            // الحقول
+                            Expanded(
+                              flex: 3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "رقم التلفون",
+                                    style: AppTextStyles.buttonTextAr.copyWith(
+                                      color: AppColors.black,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: AppSpacing.mediumVerticalSpacing.h,
+                                  ),
+                                  CustomPhoneInput(onChanged: (fullNumber) {}),
+
+                                  SizedBox(height: 16.h),
+
+                                  Text(
+                                    "كلمة المرور",
+                                    style: AppTextStyles.buttonTextAr.copyWith(
+                                      color: AppColors.black,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: AppSpacing.mediumVerticalSpacing.h,
+                                  ),
+                                  CustomTextField(
+                                    textDirection: TextDirection.rtl,
+                                    hintText: '*****************',
+                                    controller: passwordController,
+                                    obscureText: true,
+                                    prefixIcon: SvgPicture.asset(
+                                      'assets/icons/lock-open.svg',
+                                      width: 14,
+                                      height: 19,
+                                      colorFilter: ColorFilter.mode(
+                                        AppColors.mediumPrimary,
+                                        BlendMode.srcIn,
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.trim().isEmpty) {
+                                        return 'الرجاء إدخال كلمة المرور';
+                                      }
+                                      if (value.trim().length < 8) {
+                                        return 'كلمة المرور يجب أن تكون على الأقل 8 أحرف';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: TextButton(
+                                      onPressed: () {},
+                                      child: Text(
+                                        "نسيت كلمة المرور؟",
+                                        style: AppTextStyles.smallTextAr,
+                                      ),
+                                    ),
+                                  ),
+
+                                  Spacer(),
+
+                                  PrimaryButton(
+                                    text: "تسجيل الدخول",
+                                    padding: const EdgeInsets.all(5),
+                                    textStyle: AppTextStyles.bodyTextAr
+                                        .copyWith(color: AppColors.white),
+                                    onTap: _login,
+                                    width: double.infinity,
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // رابط إنشاء حساب
+                            Column(
+                              children: [
+                                SizedBox(height: 12.h),
+                                Text.rich(
+                                  TextSpan(
+                                    text: "ليس لديك حساب؟ ",
+                                    style: AppTextStyles.smallTextAr,
+                                    children: [
+                                      TextSpan(
+                                        text: "إنشاء جديد",
+                                        style: AppTextStyles.smallTextAr
+                                            .copyWith(
+                                              color: AppColors.primaryBlue,
+                                            ),
+                                        recognizer: _registerTapRecognizer,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 16.h),
+                              ],
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 16.h),
-                      ],
+                      ),
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
 
-            // مؤشر التحميل فوق الواجهة
+            // مؤشر التحميل
             if (_isLoading)
               Container(
                 color: AppColors.white,

@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:furnituremovers/core/constants/app_colors.dart';
 import 'package:furnituremovers/core/constants/app_spacing.dart';
 import 'package:furnituremovers/core/constants/app_text_styles.dart';
@@ -20,22 +20,24 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   bool _isLoading = false;
 
   void _register() async {
-    setState(() {
-      _isLoading = true;
-    });
-
+    setState(() => _isLoading = true);
     await Future.delayed(const Duration(seconds: 2));
+    setState(() => _isLoading = false);
 
-    setState(() {
-      _isLoading = false;
-    });
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('تم إنشاء الحساب بنجاح')));
 
-    // منطق التسجيل بعد النجاح
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const LoginScreen()),
+    );
   }
 
   @override
@@ -43,29 +45,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: AppColors.white, // نفس خلفية صفحة تسجيل الدخول
+        backgroundColor: AppColors.white,
         body: SafeArea(
           child: Stack(
             children: [
               SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
                     Align(
                       alignment: Alignment.centerRight,
-                      child:Text('إنشاء حساب', style: AppTextStyles.heading1Ar),
+                      child: Text(
+                        'إنشاء حساب',
+                        style: AppTextStyles.heading1Ar,
+                      ),
                     ),
-                    
                     SizedBox(height: AppSpacing.smallVerticalSpacing.h),
-
                     Align(
                       alignment: Alignment.centerRight,
                       child: RichText(
                         textAlign: TextAlign.right,
                         text: TextSpan(
-                          style: AppTextStyles.bodyTextAr.copyWith(color: AppColors.grey),
+                          style: AppTextStyles.bodyTextAr.copyWith(
+                            color: AppColors.grey,
+                          ),
                           children: [
                             const TextSpan(text: 'مرحباً بك في '),
                             TextSpan(
@@ -82,18 +86,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     SizedBox(height: AppSpacing.largeVerticalSpacing.h),
 
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "الاسم",
-                        style: AppTextStyles.buttonTextAr.copyWith(
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
-                    Expanded(
-                      child: CustomTextField(
+                    _buildLabeledField(
+                      "الاسم",
+                      CustomTextField(
                         textDirection: TextDirection.rtl,
                         hintText: 'الاسم الكامل',
                         controller: nameController,
@@ -120,107 +115,86 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
 
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "رقم التلفون",
-                        style: AppTextStyles.buttonTextAr.copyWith(
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
-                    CustomPhoneInput(onChanged: (fullNumber) {}),
-                    SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
-
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "كلمة المرور ",
-                        style: AppTextStyles.buttonTextAr.copyWith(
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
-                    CustomTextField(
-                      textDirection: TextDirection.rtl,
-                      hintText: '*****************',
-                      controller: passwordController,
-                      obscureText: true,
-                      prefixIcon: SvgPicture.asset(
-                        'assets/icons/lock-open.svg',
-                        width: 14,
-                        height: 19,
-                        colorFilter: ColorFilter.mode(
-                          AppColors.mediumPrimary,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'الرجاء إدخال كلمة المرور';
-                        }
-                        if (value.trim().length < 8) {
-                          return 'كلمة المرور يجب أن تكون على الأقل 8 أحرف';
-                        }
-                        return null;
-                      },
+                    _buildLabeledField(
+                      "رقم التلفون",
+                      CustomPhoneInput(onChanged: (fullNumber) {}),
                     ),
 
                     SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
 
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "تأكيد كلمة المرور",
-                        style: AppTextStyles.buttonTextAr.copyWith(
-                          color: AppColors.black,
+                    _buildLabeledField(
+                      "كلمة المرور",
+                      CustomTextField(
+                        textDirection: TextDirection.rtl,
+                        hintText: '*****************',
+                        controller: passwordController,
+                        obscureText: true,
+                        prefixIcon: SvgPicture.asset(
+                          'assets/icons/lock-open.svg',
+                          width: 14,
+                          height: 19,
+                          colorFilter: ColorFilter.mode(
+                            AppColors.mediumPrimary,
+                            BlendMode.srcIn,
+                          ),
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'الرجاء إدخال كلمة المرور';
+                          }
+                          if (value.trim().length < 8) {
+                            return 'كلمة المرور يجب أن تكون على الأقل 8 أحرف';
+                          }
+                          return null;
+                        },
                       ),
                     ),
+
                     SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
-                    CustomTextField(
-                         textDirection: TextDirection.rtl, // ← أضف هذا السطر
 
-                      hintText: '*****************',
-                      controller: confirmPasswordController,
-                      obscureText: true,
-                      prefixIcon: SvgPicture.asset(
-                        'assets/icons/lock-open.svg',
-                        width: 14,
-                        height: 19,
-                        colorFilter: ColorFilter.mode(
-                          AppColors.mediumPrimary,
-                          BlendMode.srcIn,
+                    _buildLabeledField(
+                      "تأكيد كلمة المرور",
+                      CustomTextField(
+                        textDirection: TextDirection.rtl,
+                        hintText: '*****************',
+                        controller: confirmPasswordController,
+                        obscureText: true,
+                        prefixIcon: SvgPicture.asset(
+                          'assets/icons/lock-open.svg',
+                          width: 14,
+                          height: 19,
+                          colorFilter: ColorFilter.mode(
+                            AppColors.mediumPrimary,
+                            BlendMode.srcIn,
+                          ),
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'الرجاء تأكيد كلمة المرور';
+                          }
+                          if (value != passwordController.text) {
+                            return 'كلمة المرور غير متطابقة';
+                          }
+                          if (value.trim().length < 8) {
+                            return 'كلمة المرور يجب أن تكون على الأقل 8 أحرف';
+                          }
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'الرجاء إدخال كلمة المرور';
-                        }
-                        if (value != passwordController.text) {
-                          return 'كلمة المرور غير متطابقة';
-                        }
-                        if (value.trim().length < 8) {
-                          return 'كلمة المرور يجب أن تكون على الأقل 8 أحرف';
-                        }
-                        return null;
-                      },
                     ),
 
-                    SizedBox(height: AppSpacing.largeVerticalSpacing.h*6),
-
+                    SizedBox(height: AppSpacing.largeVerticalSpacing.h * 2),
                     PrimaryButton(
                       text: "إنشاء جديد",
+                      padding: const EdgeInsets.all(5),
                       textStyle: AppTextStyles.bodyTextAr.copyWith(
                         color: AppColors.white,
                       ),
                       onTap: _register,
-                      width: 380.h,
+                      width: double.infinity,
                     ),
 
-                    SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
+                    SizedBox(height: AppSpacing.largeVerticalSpacing.h),
 
                     RichText(
                       text: TextSpan(
@@ -235,10 +209,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
+                                    builder: (_) => const LoginScreen(),
                                   ),
                                 );
                               },
@@ -246,22 +220,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 24.h),
                   ],
                 ),
               ),
 
-              // Overlay التحميل أبيض متل صفحة تسجيل الدخول
               if (_isLoading)
                 Container(
-                  color: AppColors.white,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  color: AppColors.white.withOpacity(0.8),
+                  child: const Center(child: CircularProgressIndicator()),
                 ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  /// ويدجت لتجميع النص والعنصر تحت بعض
+  Widget _buildLabeledField(String label, Widget child) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            label,
+            style: AppTextStyles.buttonTextAr.copyWith(color: AppColors.black),
+          ),
+        ),
+        SizedBox(height: AppSpacing.mediumVerticalSpacing.h),
+        child,
+      ],
     );
   }
 }
