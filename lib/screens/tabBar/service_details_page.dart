@@ -5,6 +5,8 @@ import 'package:furnituremovers/core/constants/app_colors.dart';
 import 'package:furnituremovers/core/constants/app_text_styles.dart';
 import 'package:furnituremovers/screens/tabBar/servi_cedetails.dart';
 import 'package:furnituremovers/screens/tabBar/service_details_page_state.dart';
+import 'package:furnituremovers/core/services/employee_service.dart';
+import 'package:furnituremovers/core/models/employee_comment.dart';
 
 class ServiceDetailsPage extends StatefulWidget {
   const ServiceDetailsPage({super.key});
@@ -18,7 +20,12 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage>
   late final TabController _tabController;
   final TextEditingController _questionController = TextEditingController();
 
-  final List<Question> _questions = [
+  List<EmployeeComment> _comments = [];
+  bool _isLoading = true;
+  String? _errorMessage;
+  final int _employeeId = 1;
+
+  final List<Question> _fallbackQuestions = [
     Question(
       name: 'عبدالله محمد',
       timeAgo: 'منذ دقيقتين',
@@ -35,6 +42,27 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this, initialIndex: 2);
+    _loadComments();
+  }
+
+  Future<void> _loadComments() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final comments = await EmployeeService.getEmployeeComments(_employeeId);
+      setState(() {
+        _comments = comments;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = e.toString();
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -48,9 +76,36 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage>
     final text = _questionController.text.trim();
     if (text.isEmpty) return;
     setState(() {
-      _questions.insert(0, Question(name: 'أنت', timeAgo: 'الآن', text: text));
+      _fallbackQuestions.insert(0, Question(name: 'أنت', timeAgo: 'الآن', text: text));
       _questionController.clear();
     });
+  }
+
+  List<Question> get _questions {
+    if (_isLoading || _errorMessage != null || _comments.isEmpty) {
+      return _fallbackQuestions;
+    }
+    
+    return _comments.map((comment) {
+      String timeAgo = 'منذ لحظات';
+      if (comment.createdAt != null) {
+        final now = DateTime.now();
+        final difference = now.difference(comment.createdAt!);
+        if (difference.inDays > 0) {
+          timeAgo = 'منذ ${difference.inDays} يوم';
+        } else if (difference.inHours > 0) {
+          timeAgo = 'منذ ${difference.inHours} ساعة';
+        } else if (difference.inMinutes > 0) {
+          timeAgo = 'منذ ${difference.inMinutes} دقيقة';
+        }
+      }
+      
+      return Question(
+        name: 'مستخدم ${comment.id ?? 'غير محدد'}',
+        timeAgo: timeAgo,
+        text: comment.question ?? comment.answer ?? 'لا يوجد نص',
+      );
+    }).toList();
   }
 
   @override
@@ -78,14 +133,20 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage>
                 ),
                 child: Center(
                   child: Icon(
-                    Icons.arrow_forward_ios, // سهم لليمين
+                    Icons.arrow_forward_ios,
                     size: 28.sp,
-                    color: Color(0xFF97A0B4), // رمادي باهت
+                    color: Color(0xFF97A0B4),
                   ),
                 ),
               ),
             ),
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: _loadComments,
+            ),
+          ],
         ),
         body: Column(
           children: [
@@ -177,7 +238,6 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage>
                 children: [
                   const ServiceDetailsCard(),
 
-                  // التقييم
                   Center(
                     child: RatingSummaryWidget(
                       avgRating: 4.5,
@@ -240,7 +300,7 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage>
                                 vertical: 4.h,
                               ),
                               decoration: BoxDecoration(
-                                color: AppColors.primaryBlue.withOpacity(0.08),
+                                color: AppColors.primaryBlue.withValues(alpha: 0.08),
                                 borderRadius: BorderRadius.circular(6.r),
                               ),
                               child: Row(
@@ -268,8 +328,76 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage>
                           ],
                         ),
                         SizedBox(height: 16.h),
-                        Expanded(
-                          child: ListView.separated(
+                        if (_isLoading)
+                          const Expanded(
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircularProgressIndicator(
+                                    color: AppColors.primaryBlue,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Text(
+                                    'جاري تحميل التعليقات...',
+                                    style: TextStyle(
+                                      fontFamily: 'Almarai',
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        else if (_errorMessage != null)
+                          Expanded(
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.error_outline,
+                                    size: 64,
+                                    color: Colors.red,
+                                  ),
+                                  const SizedBox(height: 16),
+                                  const Text(
+                                    'حدث خطأ في تحميل التعليقات',
+                                    style: TextStyle(
+                                      fontFamily: 'Almarai',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    _errorMessage!,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontFamily: 'Almarai',
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  ElevatedButton(
+                                    onPressed: _loadComments,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.primaryBlue,
+                                      foregroundColor: Colors.white,
+                                    ),
+                                    child: const Text(
+                                      'إعادة المحاولة',
+                                      style: TextStyle(fontFamily: 'Almarai'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        else
+                          Expanded(
+                            child: ListView.separated(
                             itemCount: _questions.length,
                             separatorBuilder: (_, __) => SizedBox(height: 16.h),
                             itemBuilder: (context, index) {
