@@ -30,6 +30,7 @@ class AppColors {
   ); // Very light grey - رمادي فاتح جداً
 
   // --- ألوان Flutter الأساسية (المعتادة) ---
+  static const Color primaryColor = primaryBlue; // اللون الرئيسي للتطبيق
   static const Color white = Colors.white; // أبيض
   static const Color lightGrey = Color(0xFFE0E0E0); // رمادي فاتح
   static const Color grey = Color(0xFF9E9E9E); //رمادي
