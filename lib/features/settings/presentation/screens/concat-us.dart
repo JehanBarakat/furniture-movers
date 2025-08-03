@@ -1,9 +1,11 @@
+// ignore_for_file: file_names
+
 import '../../../../core/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 
 class ContactUsScreen extends StatelessWidget {
-  const ContactUsScreen({Key? key}) : super(key: key);
+  const ContactUsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

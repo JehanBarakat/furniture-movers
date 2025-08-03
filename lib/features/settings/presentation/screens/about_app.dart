@@ -3,7 +3,7 @@ import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/constants/app_colors.dart';
 
 class AboutAppScreen extends StatelessWidget {
-  const AboutAppScreen({Key? key}) : super(key: key);
+  const AboutAppScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

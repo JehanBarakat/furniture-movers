@@ -106,7 +106,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 textAlign: TextAlign.left,
 
                 onChanged: (phone) {
-                  print(phone.completeNumber);
+                 // print(phone.completeNumber);
                 },
                 onCountryChanged: (country) {
                   setState(() {
