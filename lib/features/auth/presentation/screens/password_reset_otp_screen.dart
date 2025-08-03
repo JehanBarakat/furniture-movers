@@ -68,7 +68,7 @@ class _PasswordResetOtpScreenState extends State<PasswordResetOtpScreen> {
                 setState(() {
                   otpCode = code;
                 });
-                print('OTP Entered: $code');
+                //print('OTP Entered: $code');
               },
             ),
             SizedBox(height: 40.h), // ← Responsive

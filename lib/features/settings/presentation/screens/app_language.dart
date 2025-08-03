@@ -5,7 +5,7 @@ import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/constants/app_colors.dart'; // استدعاء ملف الألوان
 
 class AppLanguageScreen extends StatefulWidget {
-  const AppLanguageScreen({Key? key}) : super(key: key);
+  const AppLanguageScreen({super.key});
 
   @override
   State<AppLanguageScreen> createState() => _AppLanguageScreenState();

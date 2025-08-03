@@ -15,7 +15,7 @@ class PrimaryButton extends StatelessWidget {
   final ButtonType buttonType;
 
   const PrimaryButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onTap,
     this.width, // صار اختياري
@@ -29,7 +29,7 @@ class PrimaryButton extends StatelessWidget {
     this.textStyle,
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.buttonType = ButtonType.filled,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

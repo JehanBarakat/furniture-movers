@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'package:furnituremovers/features/auth/presentation/screens/login_screen.dart';
+//import 'package:furnituremovers/features/auth/presentation/screens/login_screen.dart';
 import 'package:furnituremovers/screens/onboarding/onboarding_screen.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 
 class SplashScreenCustom extends StatefulWidget {
-  const SplashScreenCustom({Key? key}) : super(key: key);
+  const SplashScreenCustom({super.key});
 
   @override
   State<SplashScreenCustom> createState() => _SplashScreenCustomState();

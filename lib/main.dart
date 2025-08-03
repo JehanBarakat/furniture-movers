@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnituremovers/core/widgets/custom_bottom_nav_bar.dart';
-import 'package:furnituremovers/features/auth/presentation/screens/login_screen.dart';
 import 'package:furnituremovers/screens/chat.dart';
 import 'package:furnituremovers/screens/favorite_page.dart';
 
@@ -33,6 +32,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.white,
           ),
           home: const SplashScreenCustom(),
+          
         );
       },
     );
@@ -43,10 +43,10 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   int currentIndex = 0;
 
   final List<Widget> pages = const [

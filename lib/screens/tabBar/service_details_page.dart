@@ -175,7 +175,7 @@ class _ServiceDetailsPageState extends State<ServiceDetailsPage>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  const ServiceDetailsCard(),
+                  ServiceDetailsCard(employeeId: 1,),
 
                   // التقييم
                   Center(
