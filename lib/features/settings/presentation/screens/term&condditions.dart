@@ -1,20 +1,14 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/constants/app_colors.dart';
 
 class TermsAndConditionsScreen extends StatelessWidget {
-  const TermsAndConditionsScreen({super.key});
+  const TermsAndConditionsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'شروط الخدمة',
-        trailingIcon: const Icon(Icons.arrow_forward_ios),
-        onTrailingPressed: () {},
-      ),
+      appBar: CustomAppBar(title: 'شروط الخدمة', onTrailingPressed: () {}),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: SingleChildScrollView(
@@ -59,13 +53,15 @@ class TermsAndConditionsScreen extends StatelessWidget {
                             decoration: TextDecoration.none,
                           ),
                         ),
-                        const TextSpan(text: '، قبل استخدام تطبيقنا، يرجى قراءة شروط الخدمة التالية بعناية:'),
+                        const TextSpan(
+                          text:
+                              '، قبل استخدام تطبيقنا، يرجى قراءة شروط الخدمة التالية بعناية:',
+                        ),
                       ],
                     ),
                     textDirection: TextDirection.rtl,
                   ),
                   const SizedBox(height: 8),
-                  // ignore: unnecessary_to_list_in_spreads
                   ..._termsList.map((e) => _buildTerm(e)).toList(),
                 ],
               ),
@@ -110,35 +106,35 @@ class TermsAndConditionsScreen extends StatelessWidget {
                 children: item.bullets!
                     .map(
                       (b) => Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Text.rich(
-                      TextSpan(
-                        text: '• ',
-                        style: const TextStyle(
-                          color: AppColors.grey,
-                          fontSize: 16,
-                          fontFamily: 'Almarai',
-                          fontWeight: FontWeight.w700,
-                          height: 1.7,
-                        ),
-                        children: [
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Text.rich(
                           TextSpan(
-                            text: b,
+                            text: '• ',
                             style: const TextStyle(
                               color: AppColors.grey,
+                              fontSize: 16,
                               fontFamily: 'Almarai',
                               fontWeight: FontWeight.w700,
-                              fontSize: 14,
                               height: 1.7,
                             ),
+                            children: [
+                              TextSpan(
+                                text: b,
+                                style: const TextStyle(
+                                  color: AppColors.grey,
+                                  fontFamily: 'Almarai',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  height: 1.7,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.right,
+                        ),
                       ),
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                    ),
-                  ),
-                )
+                    )
                     .toList(),
               ),
             )
@@ -182,13 +178,13 @@ class TermsAndConditionsScreen extends StatelessWidget {
       number: 1,
       title: 'قبول الشروط',
       text:
-      'باستخدامك لتطبيق خدماتك، فإنك توافق على الالتزام بشروط الخدمة هذه. إذا كنت لا توافق على أي جزء من الشروط، يجب عليك عدم استخدام التطبيق.',
+          'باستخدامك لتطبيق خدماتك، فإنك توافق على الالتزام بشروط الخدمة هذه. إذا كنت لا توافق على أي جزء من الشروط، يجب عليك عدم استخدام التطبيق.',
     ),
     _TermItem(
       number: 2,
       title: 'التحديث على الشروط',
       text:
-      'نحتفظ بالحق في تعديل شروط الخدمة في أي وقت. سيتم إعلامك بهذه التعديلات عبر التطبيق أو البريد الإلكتروني.\n'
+          'نحتفظ بالحق في تعديل شروط الخدمة في أي وقت. سيتم إعلامك بهذه التعديلات عبر التطبيق أو البريد الإلكتروني.\n'
           'استمرارك في استخدام التطبيق بعد التعديلات يعني موافقتك على الشروط المعدلة.',
     ),
     _TermItem(
@@ -250,7 +246,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
       number: 10,
       title: 'الاتصال بنا',
       text:
-      'لأي استفسارات أو ملاحظات حول شروط الخدمة، يرجى الاتصال بنا عبر [البريد الإلكتروني أو رقم الهاتف].',
+          'لأي استفسارات أو ملاحظات حول شروط الخدمة، يرجى الاتصال بنا عبر [البريد الإلكتروني أو رقم الهاتف].',
     ),
   ];
 }
@@ -268,3 +264,4 @@ class _TermItem {
     this.bullets,
   });
 }
+
