@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:furnituremovers/core/constants/app_text_styles.dart';
 import 'package:furnituremovers/core/widgets/custom_app_bar.dart';
-import 'package:furnituremovers/core/widgets/primary_button.dart';
 import 'package:furnituremovers/features/auth/presentation/screens/otp.dart';
 import 'package:furnituremovers/features/auth/presentation/screens/reset_password_screen.dart';
 
@@ -22,17 +21,17 @@ class _PasswordResetOtpScreenState extends State<PasswordResetOtpScreen> {
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
         title: 'التحقق من الكود',
-        trailingIcon: Icon(
-          Icons.arrow_forward_ios,
-          size: 16.sp, // ← Responsive
-          color: Colors.black,
-        ),
+
         onTrailingPressed: () {
           Navigator.pop(context);
         },
       ),
       body: Padding(
-        padding: EdgeInsets.only(top: 10.h, left: 16.w, right: 16.w), // ← Responsive
+        padding: EdgeInsets.only(
+          top: 10.h,
+          left: 16.w,
+          right: 16.w,
+        ), // ← Responsive
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -55,10 +54,7 @@ class _PasswordResetOtpScreenState extends State<PasswordResetOtpScreen> {
 
             Align(
               alignment: Alignment.centerRight,
-              child: Text(
-                'كود التحقق',
-                style: AppTextStyles.heading2Ar,
-              ),
+              child: Text('كود التحقق', style: AppTextStyles.heading2Ar),
             ),
             SizedBox(height: 8.h), // ← Responsive
 
@@ -68,15 +64,12 @@ class _PasswordResetOtpScreenState extends State<PasswordResetOtpScreen> {
                 setState(() {
                   otpCode = code;
                 });
-                //print('OTP Entered: $code');
+                print('OTP Entered: $code');
               },
             ),
             SizedBox(height: 40.h), // ← Responsive
 
-            Text(
-              "لم تتلق الرمز؟",
-              style: AppTextStyles.smallTextAr,
-            ),
+            Text("لم تتلق الرمز؟", style: AppTextStyles.smallTextAr),
             TextButton(
               onPressed: () {
                 print('إعادة إرسال الكود');
@@ -93,9 +86,7 @@ class _PasswordResetOtpScreenState extends State<PasswordResetOtpScreen> {
             ),
             SizedBox(height: 120.h), // ← Responsive
 
-            PrimaryButton(
-              text: "التالي",
-              textStyle: AppTextStyles.buttonTextAr,
+            GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
@@ -104,6 +95,35 @@ class _PasswordResetOtpScreenState extends State<PasswordResetOtpScreen> {
                   ),
                 );
               },
+              child: Container(
+                width: double.infinity,
+                height: 50.h,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xff4999CB), Color(0xff4B75CB)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  borderRadius: BorderRadius.circular(10.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  "التالي",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Almarai',
+                  ),
+                ),
+              ),
             ),
           ],
         ),
