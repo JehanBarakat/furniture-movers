@@ -5,7 +5,6 @@ import 'package:furnituremovers/core/constants/app_text_styles.dart';
 import 'package:furnituremovers/core/utils/dialog_utils.dart';
 import 'package:furnituremovers/core/widgets/custom_app_bar.dart';
 import 'package:furnituremovers/core/widgets/custom_text_field.dart';
-import 'package:furnituremovers/core/widgets/primary_button.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -16,7 +15,8 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool _obscureNewPassword = true;
@@ -75,11 +75,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "إعادة تعيين كلمة المرور",
-        trailingIcon: Icon(
-          Icons.arrow_forward_ios,
-          size: 20.sp,
-          color: AppColors.black,
-        ),
+
         onTrailingPressed: () {
           Navigator.pop(context);
         },
@@ -119,7 +115,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _obscureNewPassword ? Icons.visibility_off : Icons.visibility,
+                    _obscureNewPassword
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                     color: Colors.grey,
                   ),
                   onPressed: _toggleNewPasswordVisibility,
@@ -154,7 +152,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                    _obscureConfirmPassword
+                        ? Icons.visibility_off
+                        : Icons.visibility,
                     color: Colors.grey,
                   ),
                   onPressed: _toggleConfirmPasswordVisibility,
@@ -170,10 +170,37 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 },
               ),
               SizedBox(height: 120.h),
-              PrimaryButton(
-                text: "تأكيد",
-                textStyle: AppTextStyles.buttonTextAr.copyWith(fontSize: 16.sp),
+              GestureDetector(
                 onTap: _submit,
+                child: Container(
+                  width: double.infinity,
+                  height: 50.h,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xff4999CB), Color(0xff4B75CB)],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: BorderRadius.circular(10.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "تأكيد",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Almarai',
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
