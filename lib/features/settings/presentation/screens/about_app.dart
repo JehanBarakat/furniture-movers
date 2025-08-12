@@ -3,18 +3,16 @@ import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/constants/app_colors.dart';
 
 class AboutAppScreen extends StatelessWidget {
-  const AboutAppScreen({super.key});
+  const AboutAppScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'حول التطبيق',
-        trailingIcon: const Icon(Icons.arrow_forward_ios),
-        onTrailingPressed: () {},
-      ),
+      appBar: CustomAppBar(title: 'حول التطبيق', onTrailingPressed: () {}),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0), // حذف الـ vertical padding هنا
+        padding: const EdgeInsets.symmetric(
+          horizontal: 18.0,
+        ), // حذف الـ vertical padding هنا
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -34,9 +32,7 @@ class AboutAppScreen extends StatelessWidget {
                     const TextSpan(text: 'تطبيق '),
                     TextSpan(
                       text: 'خدماتك',
-                      style: const TextStyle(
-                        color: AppColors.primaryBlue,
-                      ),
+                      style: const TextStyle(color: AppColors.primaryBlue),
                     ),
                     const TextSpan(text: ' لخدمة نقل الأثاث لنظام الأندرويد'),
                   ],
@@ -46,7 +42,7 @@ class AboutAppScreen extends StatelessWidget {
               _buildInfoCard(
                 title: 'مقدمة',
                 content:
-                'هو تطبيق شامل يقدم لك جميع الخدمات المنزلية التي تحتاجها في مكان واحد، سواء كنت تبحث عن نقل الأثاث، تنظيف المنزل، أو صيانة الأجهزة. يمكن لتطبيق "خدماتك" تلبية جميع احتياجاتك بسهولة وأمان، مع خدمات حجز الخدمة التي ترغب بها بسهولة والاستمتاع براحة البال.',
+                    'هو تطبيق شامل يقدم لك جميع الخدمات المنزلية التي تحتاجها في مكان واحد، سواء كنت تبحث عن نقل الأثاث، تنظيف المنزل، أو صيانة الأجهزة. يمكن لتطبيق "خدماتك" تلبية جميع احتياجاتك بسهولة وأمان، مع خدمات حجز الخدمة التي ترغب بها بسهولة والاستمتاع براحة البال.',
               ),
               const SizedBox(height: 16),
               _buildInfoCard(
@@ -55,17 +51,23 @@ class AboutAppScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     _buildFeature(
-                        '1. تنوع الخدمات: نقل الأثاث، تنظيف شامل، صيانة الأجهزة، والمزيد.'),
+                      '1. تنوع الخدمات: نقل الأثاث، تنظيف شامل، صيانة الأجهزة، والمزيد.',
+                    ),
                     _buildFeature(
-                        '2. سهولة الحجز: واجهة مستخدم سهلة وبسيطة وتتيح لك حجز الخدمات في دقائق.'),
+                      '2. سهولة الحجز: واجهة مستخدم سهلة وبسيطة وتتيح لك حجز الخدمات في دقائق.',
+                    ),
                     _buildFeature(
-                        '3. جودة عالية: فريق متخصص من المهنيين لضمان أفضل جودة للخدمات.'),
+                      '3. جودة عالية: فريق متخصص من المهنيين لضمان أفضل جودة للخدمات.',
+                    ),
                     _buildFeature(
-                        '4. الأمان: ضمان سلامة ممتلكاتك أثناء تقديم الخدمات.'),
+                      '4. الأمان: ضمان سلامة ممتلكاتك أثناء تقديم الخدمات.',
+                    ),
                     _buildFeature(
-                        '5. تقييمات موثوقة: مراجعات من مستخدمين آخرين تضمن راحتك.'),
+                      '5. تقييمات موثوقة: مراجعات من مستخدمين آخرين تضمن راحتك.',
+                    ),
                     _buildFeature(
-                        'جرّب خدماتنا اليوم واحصل على أفضل سعر مع مجموعة متنوعة من الخدمات المنزلية المتاحة بنقرة واحدة!'),
+                      'جرّب خدماتنا اليوم واحصل على أفضل سعر مع مجموعة متنوعة من الخدمات المنزلية المتاحة بنقرة واحدة!',
+                    ),
                   ],
                 ),
               ),
