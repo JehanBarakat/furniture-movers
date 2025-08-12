@@ -5,7 +5,7 @@ import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/constants/app_colors.dart'; // استدعاء ملف الألوان
 
 class AppLanguageScreen extends StatefulWidget {
-  const AppLanguageScreen({super.key});
+  const AppLanguageScreen({Key? key}) : super(key: key);
 
   @override
   State<AppLanguageScreen> createState() => _AppLanguageScreenState();
@@ -15,16 +15,14 @@ class _AppLanguageScreenState extends State<AppLanguageScreen> {
   String _selectedLang = 'ar';
 
   final Country usCountry = CountryPickerUtils.getCountryByIsoCode('US');
-  final Country arCountry = CountryPickerUtils.getCountryByIsoCode('EG'); // أو 'EG' لمصر
+  final Country arCountry = CountryPickerUtils.getCountryByIsoCode(
+    'EG',
+  ); // أو 'EG' لمصر
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'لغة التطبيق',
-        trailingIcon: const Icon(Icons.arrow_forward_ios),
-        onTrailingPressed: () {},
-      ),
+      appBar: CustomAppBar(title: 'لغة التطبيق', onTrailingPressed: () {}),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -57,7 +55,9 @@ class _AppLanguageScreenState extends State<AppLanguageScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
-          color: _selectedLang == value ? AppColors.primaryBlue : Colors.grey.shade300,
+          color: _selectedLang == value
+              ? AppColors.primaryBlue
+              : Colors.grey.shade300,
           width: 1,
         ),
         borderRadius: BorderRadius.circular(8),
