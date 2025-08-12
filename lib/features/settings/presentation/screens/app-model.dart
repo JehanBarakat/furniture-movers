@@ -1,12 +1,10 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/constants/app_colors.dart';
 
 class AppModeScreen extends StatefulWidget {
-  const AppModeScreen({super.key});
+  const AppModeScreen({Key? key}) : super(key: key);
 
   @override
   State<AppModeScreen> createState() => _AppModeScreenState();
@@ -20,7 +18,7 @@ class _AppModeScreenState extends State<AppModeScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'مود التطبيق',
-        trailingIcon: const Icon(Icons.arrow_forward_ios),
+         
         onTrailingPressed: () {
           // حدث الضغط على الأيقونة
         },
@@ -89,7 +87,6 @@ class _AppModeScreenState extends State<AppModeScreen> {
               assetPath,
               width: 24,
               height: 24,
-              // ignore: deprecated_member_use
               color: AppColors.primaryBlue, // هنا لون ثابت
             ),
           ],
