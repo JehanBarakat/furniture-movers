@@ -82,3 +82,4 @@ class ChatListTile extends StatelessWidget {
     );
   }
 }
+
