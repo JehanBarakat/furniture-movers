@@ -9,10 +9,10 @@ class CustomOtpField extends StatefulWidget {
   const CustomOtpField({super.key, this.length = 6, required this.onCompleted});
 
   @override
-  CustomOtpFieldState createState() => CustomOtpFieldState();
+  _CustomOtpFieldState createState() => _CustomOtpFieldState();
 }
 
-class CustomOtpFieldState extends State<CustomOtpField> {
+class _CustomOtpFieldState extends State<CustomOtpField> {
   late List<TextEditingController> controllers;
   late List<FocusNode> focusNodes;
   late List<bool> hasFocus;
@@ -35,12 +35,8 @@ class CustomOtpFieldState extends State<CustomOtpField> {
 
   @override
   void dispose() {
-    for (var c in controllers) {
-      c.dispose();
-    }
-    for (var f in focusNodes) {
-      f.dispose();
-    }
+    for (var c in controllers) c.dispose();
+    for (var f in focusNodes) f.dispose();
     super.dispose();
   }
 
